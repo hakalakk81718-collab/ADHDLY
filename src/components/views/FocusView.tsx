@@ -35,14 +35,34 @@ export const FocusView: React.FC<FocusViewProps> = ({
   const [hyperfocusPrompt, setHyperfocusPrompt] = useState(false);
   const [totalSecondsFocused, setTotalSecondsFocused] = useState(0);
 
+  // Automatically start focus music when task is opened in Focus Mode
   useEffect(() => {
-    setSecondsLeft(initialMinutes * 60);
-    setMinutes(initialMinutes);
-  }, [initialMinutes]);
+    if (activeTask && soundEngine) {
+      try {
+        soundEngine.startChannel('brown', 0.6);
+        setAudioActive(true);
+        setIsRunning(true);
+      } catch (err) {
+        console.warn('Audio auto-start issue:', err);
+      }
+    }
+
+    return () => {
+      // Clean up and stop audio when leaving focus chamber
+      if (soundEngine) {
+        soundEngine.stopAll();
+      }
+    };
+  }, [activeTask?.id]);
 
   const handleTimerComplete = (plannedMins = minutes, actualSecs = minutes * 60) => {
     setIsRunning(false);
-    if (soundEngine) soundEngine.playBellTone(528, 0.7);
+    // Automatically stop music when task/timer completes
+    if (soundEngine) {
+      soundEngine.stopAll();
+      setAudioActive(false);
+      soundEngine.playBellTone(528, 0.7);
+    }
     try {
       confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
     } catch {}
@@ -83,10 +103,16 @@ export const FocusView: React.FC<FocusViewProps> = ({
   }, [isRunning, minutes]);
 
   const toggleTimer = () => {
-    setIsRunning(!isRunning);
-    if (!isRunning && !audioActive && soundEngine) {
-      soundEngine.startChannel('brown', 0.6);
-      setAudioActive(true);
+    const nextRunning = !isRunning;
+    setIsRunning(nextRunning);
+    if (soundEngine) {
+      if (nextRunning) {
+        soundEngine.startChannel('brown', 0.6);
+        setAudioActive(true);
+      } else {
+        soundEngine.stopAll();
+        setAudioActive(false);
+      }
     }
   };
 
@@ -108,7 +134,14 @@ export const FocusView: React.FC<FocusViewProps> = ({
   };
 
   const handleStepDone = () => {
-    if (soundEngine) soundEngine.playBellTone(528, 0.5);
+    // Automatically stop music immediately when task is done
+    if (soundEngine) {
+      soundEngine.stopAll();
+      setAudioActive(false);
+      soundEngine.playBellTone(528, 0.5);
+    }
+    setIsRunning(false);
+
     try {
       confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
     } catch {}
@@ -120,7 +153,15 @@ export const FocusView: React.FC<FocusViewProps> = ({
     // Immediately return to Today dashboard as requested
     setTimeout(() => {
       onExit();
-    }, 350);
+    }, 400);
+  };
+
+  const handleExitFocus = () => {
+    if (soundEngine) {
+      soundEngine.stopAll();
+      setAudioActive(false);
+    }
+    onExit();
   };
 
   const formatTime = (secs: number) => {
@@ -174,7 +215,7 @@ export const FocusView: React.FC<FocusViewProps> = ({
           </button>
 
           <button
-            onClick={onExit}
+            onClick={handleExitFocus}
             className="p-2.5 rounded-2xl bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-rose-400 transition hover:scale-105"
             title="Exit Focus"
           >
