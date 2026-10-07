@@ -11,6 +11,8 @@ import { soundEngine } from '@/lib/soundEngine';
 import { RotatingPhilosophy } from '@/components/RotatingPhilosophy';
 import { AdhdlyLogo } from '@/components/AdhdlyLogo';
 
+import { AuthUser } from '@/types';
+
 export type ActiveTab = 
   | 'today' 
   | 'what-now' 
@@ -36,6 +38,7 @@ interface NavigationProps {
   audioPlaying: boolean;
   sidebarCollapsed: boolean;
   setSidebarCollapsed: (collapsed: boolean) => void;
+  currentUser?: AuthUser | null;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
@@ -50,6 +53,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   audioPlaying,
   sidebarCollapsed,
   setSidebarCollapsed,
+  currentUser,
 }) => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -220,10 +224,23 @@ export const Navigation: React.FC<NavigationProps> = ({
           {/* User Account / Data Vault */}
           <button
             onClick={onOpenAccount}
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 text-slate-300 transition"
-            title="Account & Data Backup"
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition hover:scale-105 active:scale-95 ${
+              currentUser
+                ? 'bg-slate-900/90 border-indigo-500/40 text-slate-100 shadow-sm'
+                : 'bg-slate-900 border-slate-800 hover:border-indigo-500/50 text-slate-300'
+            }`}
+            title={currentUser ? `Signed in as ${currentUser.name}` : "Sign In & Fresh Vault"}
           >
-            <User className="w-4 h-4 text-emerald-400" />
+            {currentUser ? (
+              <div className="w-5 h-5 rounded-md bg-indigo-600 flex items-center justify-center text-white text-[10px] font-black shrink-0">
+                {currentUser.name[0]?.toUpperCase() || 'U'}
+              </div>
+            ) : (
+              <User className="w-4 h-4 text-emerald-400" />
+            )}
+            <span className="hidden md:inline max-w-[80px] truncate">
+              {currentUser ? currentUser.name : 'Sign In'}
+            </span>
           </button>
 
           {/* Quick Capture */}
@@ -288,14 +305,26 @@ export const Navigation: React.FC<NavigationProps> = ({
           {/* Account profile pill */}
           <button
             onClick={onOpenAccount}
-            className={`w-full flex items-center ${sidebarCollapsed ? 'justify-center p-2.5' : 'gap-2.5 px-3 py-2'} rounded-xl bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800 text-xs text-slate-300 transition`}
-            title="Manage account & offline vault"
+            className={`w-full flex items-center ${sidebarCollapsed ? 'justify-center p-2.5' : 'gap-2.5 px-3 py-2'} rounded-xl bg-slate-900/80 hover:bg-slate-800 border ${
+              currentUser ? 'border-indigo-500/40' : 'border-slate-800'
+            } text-xs text-slate-300 transition`}
+            title={currentUser ? `Account: ${currentUser.name}` : "Sign In & Fresh Vault"}
           >
-            <User className="w-4 h-4 text-emerald-400 shrink-0" />
+            {currentUser ? (
+              <div className="w-5 h-5 rounded-md bg-indigo-600 flex items-center justify-center font-bold text-white text-[10px] shrink-0">
+                {currentUser.name[0]?.toUpperCase() || 'U'}
+              </div>
+            ) : (
+              <User className="w-4 h-4 text-emerald-400 shrink-0" />
+            )}
             {!sidebarCollapsed && (
               <div className="text-left truncate">
-                <div className="text-xs font-semibold text-slate-200">Local Data Vault</div>
-                <div className="text-[10px] text-slate-400">Offline & Encrypted</div>
+                <div className="text-xs font-semibold text-slate-200 truncate">
+                  {currentUser ? currentUser.name : 'Sign In / Account'}
+                </div>
+                <div className="text-[10px] text-slate-400">
+                  {currentUser ? 'Signed In • Clean Slate' : 'Offline & Fresh Slate'}
+                </div>
               </div>
             )}
           </button>
@@ -361,10 +390,19 @@ export const Navigation: React.FC<NavigationProps> = ({
                   setMobileDrawerOpen(false);
                   onOpenAccount();
                 }}
-                className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200"
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200"
               >
-                <User className="w-4 h-4 text-emerald-400" />
-                <span>My Account & Backup</span>
+                {currentUser ? (
+                  <div className="w-5 h-5 rounded-md bg-indigo-600 flex items-center justify-center font-bold text-white text-[10px] shrink-0">
+                    {currentUser.name[0]?.toUpperCase() || 'U'}
+                  </div>
+                ) : (
+                  <User className="w-4 h-4 text-emerald-400" />
+                )}
+                <div className="text-left truncate">
+                  <div className="font-bold text-slate-100">{currentUser ? currentUser.name : 'Sign In / Account'}</div>
+                  <div className="text-[10px] text-slate-400">{currentUser ? 'Signed In • Clean Slate' : 'Offline & Fresh Slate'}</div>
+                </div>
               </button>
             </div>
           </div>

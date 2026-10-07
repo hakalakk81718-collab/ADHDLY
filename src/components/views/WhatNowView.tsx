@@ -144,8 +144,11 @@ export const WhatNowView: React.FC<WhatNowViewProps> = ({
           </div>
         </div>
       ) : (
-        <div className="text-center p-8 rounded-3xl glass-panel">
-          <p className="text-slate-300 text-sm font-semibold">No tasks matching this filter!</p>
+        <div className="text-center p-8 sm:p-10 rounded-3xl glass-panel space-y-2 border border-slate-800">
+          <p className="text-slate-200 text-sm font-bold">No tasks in your queue right now!</p>
+          <p className="text-slate-400 text-xs">
+            You have a fresh, clean runway. You can add a task or use the Task Start Engine below to break inertia right away.
+          </p>
         </div>
       )}
 

@@ -160,14 +160,28 @@ export const TodayView: React.FC<TodayViewProps> = ({
             </div>
           </div>
         ) : (
-          <div className="text-center py-8 space-y-3 relative z-10">
-            <p className="text-base font-bold text-slate-200">All clear! No tasks pending.</p>
-            <button
-              onClick={onOpenBrainDump}
-              className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition hover:scale-105"
-            >
-              Start Brain Dump
-            </button>
+          <div className="text-center py-8 sm:py-10 space-y-3 relative z-10">
+            <span className="px-3 py-1 rounded-full text-[10px] font-black bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 uppercase tracking-widest inline-block mb-1">
+              Fresh Clean Slate ✨
+            </span>
+            <p className="text-xl sm:text-2xl font-black text-white tracking-tight">Zero tasks pending — clean runway!</p>
+            <p className="text-xs text-slate-400 max-w-md mx-auto">
+              Your dashboard has zero dummy clutter. Whenever you are ready, capture what is on your mind or create your first micro-step.
+            </p>
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+              <button
+                onClick={onOpenTasks}
+                className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition hover:scale-105 shadow-md shadow-indigo-600/30"
+              >
+                + Add Your First Task
+              </button>
+              <button
+                onClick={onOpenBrainDump}
+                className="px-5 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition hover:scale-105"
+              >
+                Start Brain Dump
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -185,43 +199,50 @@ export const TodayView: React.FC<TodayViewProps> = ({
           </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-3">
-          {todayTasks.map((task) => {
-            const nextStep = task.steps.find(s => !s.completed);
+        {todayTasks.length > 0 ? (
+          <div className="grid grid-cols-1 gap-3">
+            {todayTasks.map((task) => {
+              const nextStep = task.steps.find(s => !s.completed);
 
-            return (
-              <div
-                key={task.id}
-                className="p-4 sm:p-5 rounded-2xl glass-hud-card flex items-center justify-between gap-4 group"
-              >
-                <div className="space-y-1.5 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-black text-slate-100 group-hover:text-indigo-300 transition truncate">
-                      {task.title}
-                    </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded font-mono bg-slate-800/90 text-slate-300 uppercase font-bold shrink-0 border border-slate-700/60">
-                      {task.category}
-                    </span>
-                  </div>
-                  {nextStep && (
-                    <div className="text-xs text-amber-300/95 font-semibold truncate flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                      <span>{nextStep.title}</span>
-                    </div>
-                  )}
-                </div>
-
-                <button
-                  onClick={() => onStartFocus(task, nextStep, nextStep?.durationMinutes || 15)}
-                  className="px-4 py-2 rounded-xl bg-slate-800/90 hover:bg-indigo-600 hover:text-white text-slate-200 text-xs font-bold flex items-center gap-1.5 transition shrink-0 hover:scale-105 active:scale-95 shadow-sm border border-slate-700/60 hover:border-transparent"
+              return (
+                <div
+                  key={task.id}
+                  className="p-4 sm:p-5 rounded-2xl glass-hud-card flex items-center justify-between gap-4 group"
                 >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>Start</span>
-                </button>
-              </div>
-            );
-          })}
-        </div>
+                  <div className="space-y-1.5 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-black text-slate-100 group-hover:text-indigo-300 transition truncate">
+                        {task.title}
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded font-mono bg-slate-800/90 text-slate-300 uppercase font-bold shrink-0 border border-slate-700/60">
+                        {task.category}
+                      </span>
+                    </div>
+                    {nextStep && (
+                      <div className="text-xs text-amber-300/95 font-semibold truncate flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                        <span>{nextStep.title}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={() => onStartFocus(task, nextStep, nextStep?.durationMinutes || 15)}
+                    className="px-4 py-2 rounded-xl bg-slate-800/90 hover:bg-indigo-600 hover:text-white text-slate-200 text-xs font-bold flex items-center gap-1.5 transition shrink-0 hover:scale-105 active:scale-95 shadow-sm border border-slate-700/60 hover:border-transparent"
+                  >
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                    <span>Start</span>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="p-6 rounded-2xl glass-hud-card text-center space-y-2 border border-slate-800/80">
+            <p className="text-xs font-bold text-slate-300">No active tasks in your queue.</p>
+            <p className="text-[11px] text-slate-500">Break daunting goals into 2-minute micro-actions with zero shame.</p>
+          </div>
+        )}
       </div>
 
     </div>

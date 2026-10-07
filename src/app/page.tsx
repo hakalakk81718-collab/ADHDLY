@@ -22,17 +22,18 @@ import { QuickCaptureModal } from '@/components/QuickCaptureModal';
 import { AccountModal } from '@/components/AccountModal';
 import { PwaInstallBanner } from '@/components/PwaInstallBanner';
 
-import { storage, INITIAL_TASKS, INITIAL_ROUTINES } from '@/lib/storage';
+import { storage, INITIAL_TASKS, INITIAL_ROUTINES, SAMPLE_DEMO_TASKS } from '@/lib/storage';
 import { soundEngine } from '@/lib/soundEngine';
-import { Task, MicroStep, EnergyLevel, BrainDumpItem, Routine } from '@/types';
+import { Task, MicroStep, EnergyLevel, BrainDumpItem, Routine, AuthUser } from '@/types';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('today');
-  const [tasks, setTasks] = useState<Task[]>(INITIAL_TASKS);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [brainDump, setBrainDump] = useState<BrainDumpItem[]>([]);
   const [routines, setRoutines] = useState<Routine[]>(INITIAL_ROUTINES);
   const [energy, setEnergy] = useState<EnergyLevel>('good');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
 
   // Focus mode states
   const [activeFocusTask, setActiveFocusTask] = useState<Task | null>(null);
@@ -49,13 +50,17 @@ export default function Home() {
   const [accountModalOpen, setAccountModalOpen] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
 
-  // Load persisted data on mount
+  // Load persisted data on mount with clean slate check
   useEffect(() => {
+    storage.cleanLegacyDummyData();
+    const user = storage.getAuthUser();
+    setCurrentUser(user);
+
     const loadedTasks = storage.getTasks();
-    if (loadedTasks && loadedTasks.length > 0) setTasks(loadedTasks);
+    setTasks(loadedTasks || []);
     
     const loadedDump = storage.getBrainDump();
-    if (loadedDump) setBrainDump(loadedDump);
+    setBrainDump(loadedDump || []);
 
     const loadedRoutines = storage.getRoutines();
     if (loadedRoutines && loadedRoutines.length > 0) setRoutines(loadedRoutines);
@@ -165,6 +170,7 @@ export default function Home() {
         audioPlaying={audioPlaying}
         sidebarCollapsed={sidebarCollapsed}
         setSidebarCollapsed={setSidebarCollapsed}
+        currentUser={currentUser}
       />
 
       {/* Main Workspace Canvas (Dynamically adapts to sidebar width) */}
@@ -301,8 +307,16 @@ export default function Home() {
         isOpen={accountModalOpen}
         onClose={() => setAccountModalOpen(false)}
         onDataReset={() => {
-          setTasks(INITIAL_TASKS);
-          setRoutines(INITIAL_ROUTINES);
+          setTasks([]);
+          setBrainDump([]);
+        }}
+        onUserChange={(user) => {
+          setCurrentUser(user);
+          setTasks(storage.getTasks());
+          setBrainDump(storage.getBrainDump());
+        }}
+        onLoadSampleTasks={() => {
+          setTasks(storage.getTasks());
         }}
       />
 

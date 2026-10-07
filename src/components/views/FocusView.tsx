@@ -116,6 +116,11 @@ export const FocusView: React.FC<FocusViewProps> = ({
     if (activeTask && onTaskCompleted) {
       onTaskCompleted(activeTask.id);
     }
+
+    // Immediately return to Today dashboard as requested
+    setTimeout(() => {
+      onExit();
+    }, 350);
   };
 
   const formatTime = (secs: number) => {

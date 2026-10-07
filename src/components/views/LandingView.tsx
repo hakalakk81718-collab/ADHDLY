@@ -369,7 +369,20 @@ export const LandingView: React.FC<LandingViewProps> = ({
         </div>
       </div>
 
-      {/* 6. Final Call to Action */}
+      {/* 6. Medical & Clinical Disclaimer */}
+      <div className="p-6 sm:p-7 rounded-3xl bg-amber-950/20 border border-amber-500/30 text-amber-200 space-y-2.5">
+        <div className="flex items-center gap-2">
+          <div className="p-2 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
+            <ShieldCheck className="w-4 h-4" />
+          </div>
+          <h3 className="text-sm font-bold text-amber-100 tracking-tight">Community & Lived Experience Disclaimer</h3>
+        </div>
+        <p className="text-xs text-amber-200/90 leading-relaxed">
+          <strong>Important Note:</strong> This website is <strong>not clinically checked or evaluated by doctors</strong>. ADHDLY is built entirely from <strong>real people&apos;s lived experiences with ADHD</strong>, neurodivergent community feedback, and public <strong>internet studies and psychological research</strong> on executive dysfunction. It is designed as a practical, empathetic daily coping companion, not a clinical treatment or medical device.
+        </p>
+      </div>
+
+      {/* 7. Final Call to Action */}
       <div className="p-10 rounded-3xl bg-gradient-to-r from-indigo-950/40 via-[#0e1626] to-emerald-950/30 border border-indigo-500/30 text-center space-y-5 shadow-2xl">
         <h2 className="text-3xl font-extrabold text-slate-100">
           Ready to break through task initiation friction?
