@@ -5,6 +5,7 @@ import { Plus, Check, Play, Split, Trash2 } from 'lucide-react';
 import { Task, MicroStep, TaskCategory } from '@/types';
 import { aiEngine } from '@/lib/aiEngine';
 import { storage } from '@/lib/storage';
+import { VoiceTypingButton } from '@/components/VoiceTypingButton';
 import confetti from 'canvas-confetti';
 
 interface TasksViewProps {
@@ -112,14 +113,23 @@ export const TasksView: React.FC<TasksViewProps> = ({
 
       {/* Add Task Bar */}
       <form onSubmit={handleCreateTask} className="glass-panel p-4 rounded-3xl space-y-3">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            placeholder="Type any task (e.g. 'File taxes', 'Clean kitchen', 'Reply email')..."
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            className="flex-1 px-4 py-3 rounded-2xl bg-slate-900/90 border border-slate-700/80 text-xs sm:text-sm text-white placeholder-slate-500 outline-none focus:border-indigo-500 transition"
-          />
+        <div className="flex gap-2 items-center">
+          <div className="relative flex-1">
+            <input
+              type="text"
+              placeholder="Type or speak any task (e.g. 'File taxes', 'Clean kitchen', 'Reply email')..."
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              className="w-full pl-4 pr-11 py-3 rounded-2xl bg-slate-900/90 border border-slate-700/80 text-xs sm:text-sm text-white placeholder-slate-500 outline-none focus:border-indigo-500 transition"
+            />
+            <div className="absolute right-2 top-1/2 -translate-y-1/2">
+              <VoiceTypingButton
+                size="sm"
+                onTranscript={(text) => setNewTitle(prev => (prev ? `${prev} ${text}` : text))}
+                title="Speak task title"
+              />
+            </div>
+          </div>
           <button
             type="submit"
             disabled={!newTitle.trim()}

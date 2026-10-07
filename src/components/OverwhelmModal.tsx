@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { HeartHandshake, Wind, ArrowRight, CheckCircle2, X } from 'lucide-react';
 import { aiEngine } from '@/lib/aiEngine';
 import { MicroStep } from '@/types';
+import { VoiceTypingButton } from '@/components/VoiceTypingButton';
 
 interface OverwhelmModalProps {
   isOpen: boolean;
@@ -182,13 +183,21 @@ export const OverwhelmModal: React.FC<OverwhelmModalProps> = ({ isOpen, onClose,
               </div>
             ) : (
               <div className="space-y-3">
-                <input
-                  type="text"
-                  placeholder="What is the one thing stressing you out?"
-                  value={customInput}
-                  onChange={(e) => setCustomInput(e.target.value)}
-                  className="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-sm focus:border-indigo-500 outline-none"
-                />
+                <div className="relative flex items-center">
+                  <input
+                    type="text"
+                    placeholder="What is the one thing stressing you out?"
+                    value={customInput}
+                    onChange={(e) => setCustomInput(e.target.value)}
+                    className="w-full p-3 pr-11 rounded-xl bg-slate-900 border border-slate-700 text-sm focus:border-indigo-500 outline-none"
+                  />
+                  <div className="absolute right-2">
+                    <VoiceTypingButton
+                      size="sm"
+                      onTranscript={(text) => setCustomInput((prev) => (prev ? `${prev} ${text}` : text))}
+                    />
+                  </div>
+                </div>
                 <button
                   onClick={handleCustomDecompose}
                   className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl text-xs transition"

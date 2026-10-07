@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { storage, SAMPLE_DEMO_TASKS } from '@/lib/storage';
 import { AuthUser } from '@/types';
+import { VoiceTypingButton } from '@/components/VoiceTypingButton';
 
 interface AccountModalProps {
   isOpen: boolean;
@@ -236,23 +237,41 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             <form onSubmit={handleSaveProfile} className="space-y-3">
               <div>
                 <label className="text-[11px] font-semibold text-slate-400 block mb-1">Your Name / Nickname</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Alex or Maya"
-                  value={nameInput}
-                  onChange={(e) => setNameInput(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-100 outline-none focus:border-indigo-500"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="e.g. Alex or Maya"
+                    value={nameInput}
+                    onChange={(e) => setNameInput(e.target.value)}
+                    className="w-full pl-3 pr-10 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-100 outline-none focus:border-indigo-500"
+                  />
+                  <div className="absolute right-1.5 top-1/2 -translate-y-1/2">
+                    <VoiceTypingButton
+                      size="sm"
+                      onTranscript={(text) => setNameInput(text)}
+                      title="Speak your name"
+                    />
+                  </div>
+                </div>
               </div>
               <div>
                 <label className="text-[11px] font-semibold text-slate-400 block mb-1">Email / Handle (Optional)</label>
-                <input
-                  type="email"
-                  placeholder="name@example.com (optional)"
-                  value={emailInput}
-                  onChange={(e) => setEmailInput(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-100 outline-none focus:border-indigo-500"
-                />
+                <div className="relative">
+                  <input
+                    type="email"
+                    placeholder="name@example.com (optional)"
+                    value={emailInput}
+                    onChange={(e) => setEmailInput(e.target.value)}
+                    className="w-full pl-3 pr-10 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-100 outline-none focus:border-indigo-500"
+                  />
+                  <div className="absolute right-1.5 top-1/2 -translate-y-1/2">
+                    <VoiceTypingButton
+                      size="sm"
+                      onTranscript={(text) => setEmailInput(text.replace(/\s+/g, '').toLowerCase())}
+                      title="Speak your email"
+                    />
+                  </div>
+                </div>
               </div>
               <div className="flex gap-2">
                 <button

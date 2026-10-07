@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Brain, Mic, MicOff, ArrowRight, Sparkles, CheckCircle2, Trash2 } from 'lucide-react';
+import { Brain, ArrowRight, Sparkles, CheckCircle2, Trash2 } from 'lucide-react';
 import { BrainDumpItem, Task } from '@/types';
 import { aiEngine } from '@/lib/aiEngine';
 import { storage } from '@/lib/storage';
 import confetti from 'canvas-confetti';
+import { VoiceTypingButton } from '@/components/VoiceTypingButton';
 
 interface BrainDumpViewProps {
   items: BrainDumpItem[];
@@ -19,46 +20,7 @@ export const BrainDumpView: React.FC<BrainDumpViewProps> = ({
   onConvertToTask
 }) => {
   const [rawText, setRawText] = useState('');
-  const [isListening, setIsListening] = useState(false);
   const [topActionSuggestion, setTopActionSuggestion] = useState<string | null>(null);
-
-  const toggleVoice = () => {
-    if (typeof window === 'undefined') return;
-    const SpeechRecognition = (window as unknown as { SpeechRecognition: any; webkitSpeechRecognition: any }).SpeechRecognition ||
-                              (window as unknown as { webkitSpeechRecognition: any }).webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-      alert('Speech recognition is not supported in this browser. Please type or paste your thoughts.');
-      return;
-    }
-
-    if (isListening) {
-      setIsListening(false);
-      return;
-    }
-
-    try {
-      const recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = false;
-      recognition.lang = 'en-US';
-
-      recognition.onstart = () => setIsListening(true);
-      recognition.onresult = (event: any) => {
-        let transcript = '';
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          transcript += event.results[i][0].transcript + ' ';
-        }
-        setRawText(prev => (prev ? `${prev}\n${transcript.trim()}` : transcript.trim()));
-      };
-      recognition.onerror = () => setIsListening(false);
-      recognition.onend = () => setIsListening(false);
-
-      recognition.start();
-    } catch {
-      setIsListening(false);
-    }
-  };
 
   const handleProcessDump = () => {
     if (!rawText.trim()) return;
@@ -132,22 +94,17 @@ export const BrainDumpView: React.FC<BrainDumpViewProps> = ({
             className="w-full p-4 rounded-2xl bg-slate-900/90 border border-slate-700/80 text-xs sm:text-sm text-white placeholder-slate-500 outline-none focus:border-indigo-500 resize-none leading-relaxed transition"
           />
 
-          <button
-            onClick={toggleVoice}
-            className={`absolute bottom-3 right-3 p-2.5 rounded-xl transition ${
-              isListening
-                ? 'bg-rose-500 text-white animate-pulse'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
-            }`}
-            title="Speech dictation"
-          >
-            {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
-          </button>
+          <div className="absolute bottom-3 right-3">
+            <VoiceTypingButton
+              size="md"
+              onTranscript={(text) => setRawText((prev) => (prev ? `${prev} ${text}` : text))}
+            />
+          </div>
         </div>
 
         <div className="flex items-center justify-between gap-3 pt-1">
           <span className="text-[11px] text-slate-400 font-medium">
-            {isListening ? '🎙️ Listening... speak naturally.' : 'Voice dictation, comma lists, or paste.'}
+            Voice typing supported. Dictate, type comma lists, or paste.
           </span>
           <button
             onClick={handleProcessDump}

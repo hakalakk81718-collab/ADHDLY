@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Bot, Send, Sparkles, AlertCircle, X } from 'lucide-react';
 import { aiEngine } from '@/lib/aiEngine';
+import { VoiceTypingButton } from '@/components/VoiceTypingButton';
 
 interface AskAiModalProps {
   isOpen: boolean;
@@ -126,13 +127,22 @@ export const AskAiModal: React.FC<AskAiModalProps> = ({ isOpen, onClose, onDecom
             }}
             className="flex gap-2"
           >
-            <input
-              type="text"
-              placeholder="What are you stuck on right now?..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-100 placeholder-slate-500 outline-none focus:border-indigo-500"
-            />
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="What are you stuck on right now? (speak or type)..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full pl-4 pr-11 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-100 placeholder-slate-500 outline-none focus:border-indigo-500"
+              />
+              <div className="absolute right-1.5 top-1/2 -translate-y-1/2">
+                <VoiceTypingButton
+                  size="sm"
+                  onTranscript={(text) => setQuery(prev => (prev ? `${prev} ${text}` : text))}
+                  title="Speak to ADHDLY AI"
+                />
+              </div>
+            </div>
             <button
               type="submit"
               disabled={loading || !query.trim()}

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Layers, CheckCircle2, RefreshCw, Plus, Check, ShieldCheck, Sparkles } from 'lucide-react';
 import { Routine, RoutineStep } from '@/types';
 import { storage } from '@/lib/storage';
+import { VoiceTypingButton } from '@/components/VoiceTypingButton';
 import confetti from 'canvas-confetti';
 
 interface RoutinesViewProps {
@@ -213,18 +214,27 @@ export const RoutinesView: React.FC<RoutinesViewProps> = ({
         </div>
 
         {/* Quick Add Custom Item */}
-        <form onSubmit={handleAddChecklistItem} className="flex gap-2">
-          <input
-            type="text"
-            placeholder="Add custom item (e.g. 'Gym bag', 'Passport', 'Snack')..."
-            value={newChecklistText}
-            onChange={(e) => setNewChecklistText(e.target.value)}
-            className="flex-1 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-100 placeholder-slate-500 outline-none focus:border-indigo-500"
-          />
+        <form onSubmit={handleAddChecklistItem} className="flex gap-2 items-center">
+          <div className="relative flex-1">
+            <input
+              type="text"
+              placeholder="Add custom item (type or speak, e.g. 'Gym bag', 'Passport', 'Snack')..."
+              value={newChecklistText}
+              onChange={(e) => setNewChecklistText(e.target.value)}
+              className="w-full pl-3.5 pr-11 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-100 placeholder-slate-500 outline-none focus:border-indigo-500"
+            />
+            <div className="absolute right-1.5 top-1/2 -translate-y-1/2">
+              <VoiceTypingButton
+                size="sm"
+                onTranscript={(text) => setNewChecklistText(prev => (prev ? `${prev} ${text}` : text))}
+                title="Speak checklist item"
+              />
+            </div>
+          </div>
           <button
             type="submit"
             disabled={!newChecklistText.trim()}
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 text-white rounded-xl text-xs font-bold transition flex items-center gap-1"
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shrink-0"
           >
             <Plus className="w-3.5 h-3.5" /> Add Item
           </button>

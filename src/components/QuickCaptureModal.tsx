@@ -5,6 +5,7 @@ import { Mic, MicOff, Plus, Zap, X, Check } from 'lucide-react';
 import { storage } from '@/lib/storage';
 import { aiEngine } from '@/lib/aiEngine';
 import { Task } from '@/types';
+import { VoiceTypingButton } from '@/components/VoiceTypingButton';
 
 interface QuickCaptureModalProps {
   isOpen: boolean;
@@ -132,20 +133,16 @@ export const QuickCaptureModal: React.FC<QuickCaptureModalProps> = ({ isOpen, on
             placeholder="Type anything in your head, or tap the microphone to speak..."
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="w-full p-4 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-slate-100 placeholder-slate-500 outline-none focus:border-indigo-500 resize-none"
+            className="w-full p-4 pr-14 rounded-2xl bg-slate-900 border border-slate-700 text-sm text-slate-100 placeholder-slate-500 outline-none focus:border-indigo-500 resize-none"
           />
 
-          <button
-            onClick={toggleVoice}
-            className={`absolute bottom-3 right-3 p-2 rounded-xl transition ${
-              isListening
-                ? 'bg-rose-500 text-white animate-pulse'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
-            }`}
-            title="Dictate with voice"
-          >
-            {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
-          </button>
+          <div className="absolute bottom-3 right-3">
+            <VoiceTypingButton
+              size="sm"
+              onTranscript={(transcript) => setText(prev => (prev ? `${prev} ${transcript}` : transcript))}
+              title="Speak into quick capture"
+            />
+          </div>
         </div>
 
         <div className="flex items-center justify-between gap-3">

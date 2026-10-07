@@ -8,6 +8,7 @@ import {
   Mail, Send, Copy, MessageSquare
 } from 'lucide-react';
 import { soundEngine } from '@/lib/soundEngine';
+import { VoiceTypingButton } from '@/components/VoiceTypingButton';
 
 interface LandingViewProps {
   onEnterApp: () => void;
@@ -458,9 +459,16 @@ export const LandingView: React.FC<LandingViewProps> = ({
               rows={3}
               value={suggestionText}
               onChange={(e) => setSuggestionText(e.target.value)}
-              placeholder="What would make ADHDLY better for you? (e.g. 'Add soundscapes with binaural beats for reading', 'Make task cards bigger', etc.)..."
-              className="w-full p-4 rounded-2xl bg-slate-900/90 border border-slate-700/80 text-xs sm:text-sm text-slate-100 placeholder-slate-500 outline-none focus:border-indigo-500 transition resize-none"
+              placeholder="What would make ADHDLY better for you? (type or speak, e.g. 'Add soundscapes with binaural beats', 'Make task cards bigger', etc.)..."
+              className="w-full p-4 pr-12 rounded-2xl bg-slate-900/90 border border-slate-700/80 text-xs sm:text-sm text-slate-100 placeholder-slate-500 outline-none focus:border-indigo-500 transition resize-none"
             />
+            <div className="absolute right-3 bottom-3">
+              <VoiceTypingButton
+                size="sm"
+                onTranscript={(text) => setSuggestionText(prev => (prev ? `${prev} ${text}` : text))}
+                title="Speak suggestion"
+              />
+            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
