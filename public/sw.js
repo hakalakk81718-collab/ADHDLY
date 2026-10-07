@@ -1,9 +1,10 @@
 // ADHDLY Service Worker for 100% Offline Resilience
-const CACHE_NAME = 'adhdly-v2-cache';
+const CACHE_NAME = 'adhdly-v3-cache';
 const STATIC_ASSETS = [
   '/',
   '/manifest.webmanifest',
-  '/favicon.ico'
+  '/icon.svg',
+  '/logo.svg'
 ];
 
 self.addEventListener('install', (event) => {
@@ -31,7 +32,6 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Offline-first strategy for navigation and static assets
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(() => caches.match('/'))
