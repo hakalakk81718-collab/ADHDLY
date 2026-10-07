@@ -22,10 +22,10 @@ export const metadata: Metadata = {
   applicationName: "ADHDLY",
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon.svg?v=adhdly-3", type: "image/svg+xml" },
     ],
-    apple: "/logo.svg",
-    shortcut: "/icon.svg",
+    apple: "/logo.svg?v=adhdly-3",
+    shortcut: "/icon.svg?v=adhdly-3",
   },
   appleWebApp: {
     capable: true,
@@ -61,8 +61,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fontSans.variable} ${fontMono.variable} dark`}>
       <head>
-        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-        <link rel="apple-touch-icon" href="/logo.svg" />
+        <link rel="icon" type="image/svg+xml" href="/icon.svg?v=adhdly-3" />
+        <link rel="shortcut icon" type="image/svg+xml" href="/icon.svg?v=adhdly-3" />
+        <link rel="apple-touch-icon" href="/logo.svg?v=adhdly-3" />
         <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body className="min-h-screen bg-[#06080f] text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white overflow-x-hidden bg-grid-subtle">
