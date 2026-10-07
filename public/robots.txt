@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Allow: /manifest.webmanifest
+
+Sitemap: https://adhdly.app/sitemap.xml

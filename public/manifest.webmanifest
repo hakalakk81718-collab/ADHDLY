@@ -1,0 +1,24 @@
+{
+  "name": "ADHDLY — External Executive Function",
+  "short_name": "ADHDLY",
+  "description": "Don't organize your entire life. Make the next step easier. ADHD-focused productivity, task decomposition, and focus companion.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0f17",
+  "theme_color": "#0b0f17",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["productivity", "utilities", "lifestyle"]
+}
