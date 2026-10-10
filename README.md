@@ -1,4 +1,4 @@
-# ADHDLY 2.0 — External Executive Function
+# ADHDLY — External Executive Function
 
 > **"Don't organize your entire life. Make the next step easier."**
 
