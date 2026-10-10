@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { Task, EnergyLevel, MicroStep } from '@/types';
 import { aiEngine, RecommendationResult } from '@/lib/aiEngine';
+import { RecommendationCard } from '@/components/RecommendationCard';
 
 interface TodayViewProps {
   tasks: Task[];
@@ -17,6 +18,7 @@ interface TodayViewProps {
   onOpenBrainDump: () => void;
   onOpenTasks: () => void;
   onDecomposeTask: (taskId: string) => void;
+  onAddTask?: (task: Task) => void;
 }
 
 export const TodayView: React.FC<TodayViewProps> = ({
@@ -27,7 +29,8 @@ export const TodayView: React.FC<TodayViewProps> = ({
   onOpenOverwhelm,
   onOpenBrainDump,
   onOpenTasks,
-  onDecomposeTask
+  onDecomposeTask,
+  onAddTask
 }) => {
   const recommendation: RecommendationResult | null = aiEngine.getWhatShouldIDoNow(tasks, energy, 20);
 
@@ -97,94 +100,15 @@ export const TodayView: React.FC<TodayViewProps> = ({
         </div>
       </div>
 
-      {/* 2. Hero: WHAT SHOULD I DO NOW? (High-Contrast, Punchy, Animated Glow) */}
-      <div className="relative overflow-hidden p-6 sm:p-8 rounded-3xl glass-panel-elevated glow-indigo border border-indigo-500/40 space-y-5 transition-all">
-        
-        {/* Glow accent in corner */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="flex items-center justify-between relative z-10">
-          <span className="px-3.5 py-1.5 rounded-full text-[11px] font-black bg-gradient-to-r from-amber-500/20 to-amber-500/10 text-amber-300 border border-amber-500/40 flex items-center gap-2 uppercase tracking-wider shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin" style={{ animationDuration: '6s' }} /> 
-            Do This Right Now
-          </span>
-          <span className="text-xs text-indigo-300 font-mono font-bold px-2.5 py-1 rounded-xl bg-indigo-950/60 border border-indigo-500/30">
-            1 Action Only
-          </span>
-        </div>
-
-        {recommendation ? (
-          <div className="space-y-4 relative z-10">
-            <div>
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest block mb-1">
-                Parent Task: {recommendation.task.title}
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-snug">
-                {recommendation.recommendedStep.title}
-              </h2>
-            </div>
-
-            {/* Quick High-Signal Chips */}
-            <div className="flex flex-wrap items-center gap-2 pt-1">
-              <span className="px-3 py-1 rounded-xl text-xs font-black font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5 shadow-sm">
-                <span>⏱️</span>
-                <span>~{recommendation.durationMinutes} min step</span>
-              </span>
-              <span className="px-3 py-1 rounded-xl text-xs font-bold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 capitalize">
-                {recommendation.task.category}
-              </span>
-              {recommendation.reason[0] && (
-                <span className="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-900/80 text-slate-300 border border-slate-700/80">
-                  {recommendation.reason[0]}
-                </span>
-              )}
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-              <button
-                onClick={() => onStartFocus(recommendation.task, recommendation.recommendedStep, recommendation.durationMinutes)}
-                className="flex-1 py-4 px-6 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 hover:from-indigo-500 hover:to-indigo-400 text-white font-black text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-2xl shadow-indigo-600/50 transition hover:scale-[1.02] active:scale-[0.98] ring-1 ring-white/20"
-              >
-                <Play className="w-4 h-4 fill-current" />
-                <span>START THIS {recommendation.durationMinutes}-MINUTE STEP</span>
-              </button>
-
-              <button
-                onClick={() => onDecomposeTask(recommendation.task.id)}
-                className="py-3.5 px-5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700/80 transition hover:scale-[1.02] active:scale-[0.98]"
-              >
-                Make It Smaller
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="text-center py-8 sm:py-10 space-y-3 relative z-10">
-            <span className="px-3 py-1 rounded-full text-[10px] font-black bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 uppercase tracking-widest inline-block mb-1">
-              Fresh Clean Slate ✨
-            </span>
-            <p className="text-xl sm:text-2xl font-black text-white tracking-tight">Zero tasks pending — clean runway!</p>
-            <p className="text-xs text-slate-400 max-w-md mx-auto">
-              Your dashboard has zero dummy clutter. Whenever you are ready, capture what is on your mind or create your first micro-step.
-            </p>
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-              <button
-                onClick={onOpenTasks}
-                className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition hover:scale-105 shadow-md shadow-indigo-600/30"
-              >
-                + Add Your First Task
-              </button>
-              <button
-                onClick={onOpenBrainDump}
-                className="px-5 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition hover:scale-105"
-              >
-                Start Brain Dump
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+      {/* 2. Hero: WHAT SHOULD I DO NOW? (Always visible, editable, supports keyboard & mic) */}
+      <RecommendationCard
+        recommendation={recommendation}
+        onStartFocus={onStartFocus}
+        onDecomposeTask={onDecomposeTask}
+        onAddTask={onAddTask}
+        badgeLabel="DO THIS RIGHT NOW"
+        actionButtonText="START THIS STEP RIGHT NOW"
+      />
 
       {/* 3. Today's Essential Tasks (Visual & Minimal) */}
       <div className="space-y-3">

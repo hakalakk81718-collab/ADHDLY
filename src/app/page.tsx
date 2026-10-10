@@ -199,6 +199,7 @@ export default function Home() {
             onOpenBrainDump={() => setActiveTab('brain-dump')}
             onOpenTasks={() => setActiveTab('tasks')}
             onDecomposeTask={() => setActiveTab('tasks')}
+            onAddTask={handleAddTask}
           />
         )}
 
@@ -213,6 +214,7 @@ export default function Home() {
             }}
             onStartFocus={handleStartFocus}
             onDecomposeTask={() => setActiveTab('tasks')}
+            onAddTask={handleAddTask}
           />
         )}
 

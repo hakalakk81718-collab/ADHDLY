@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Sparkles, Play, Clock, Flame, Smile, Meh, Moon, AlertTriangle, Zap, CheckCircle2, RefreshCw } from 'lucide-react';
 import { Task, EnergyLevel, MicroStep } from '@/types';
 import { aiEngine, RecommendationResult } from '@/lib/aiEngine';
+import { RecommendationCard } from '@/components/RecommendationCard';
 import confetti from 'canvas-confetti';
 
 interface WhatNowViewProps {
@@ -12,6 +13,7 @@ interface WhatNowViewProps {
   setEnergy: (e: EnergyLevel) => void;
   onStartFocus: (task: Task, step?: MicroStep, minutes?: number) => void;
   onDecomposeTask: (taskId: string) => void;
+  onAddTask?: (task: Task) => void;
 }
 
 export const WhatNowView: React.FC<WhatNowViewProps> = ({
@@ -19,7 +21,8 @@ export const WhatNowView: React.FC<WhatNowViewProps> = ({
   energy,
   setEnergy,
   onStartFocus,
-  onDecomposeTask
+  onDecomposeTask,
+  onAddTask
 }) => {
   const [availableMinutes, setAvailableMinutes] = useState<number>(20);
   const [momentumStep, setMomentumStep] = useState<number>(1);
@@ -105,52 +108,15 @@ export const WhatNowView: React.FC<WhatNowViewProps> = ({
         </div>
       </div>
 
-      {/* Hero Recommendation Card */}
-      {recommendation ? (
-        <div className="glass-panel-elevated glow-indigo p-6 sm:p-8 rounded-3xl space-y-5 transition-all">
-          <div className="flex items-center justify-between">
-            <span className="px-3 py-1 rounded-full text-[10px] font-black bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 uppercase tracking-widest">
-              Selected For You
-            </span>
-            <span className="text-xs font-mono font-bold text-emerald-400">
-              ~{recommendation.durationMinutes} min
-            </span>
-          </div>
-
-          <div>
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-              Task: {recommendation.task.title}
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-snug">
-              {recommendation.recommendedStep.title}
-            </h2>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
-            <button
-              onClick={() => onStartFocus(recommendation.task, recommendation.recommendedStep, recommendation.durationMinutes)}
-              className="w-full sm:flex-1 py-4 px-6 rounded-2xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xl shadow-indigo-600/30 transition hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <Play className="w-4 h-4 fill-current" />
-              <span>START THIS STEP RIGHT NOW</span>
-            </button>
-
-            <button
-              onClick={() => onDecomposeTask(recommendation.task.id)}
-              className="w-full sm:w-auto py-3.5 px-5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 transition hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Make Smaller
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="text-center p-8 sm:p-10 rounded-3xl glass-panel space-y-2 border border-slate-800">
-          <p className="text-slate-200 text-sm font-bold">No tasks in your queue right now!</p>
-          <p className="text-slate-400 text-xs">
-            You have a fresh, clean runway. You can add a task or use the Task Start Engine below to break inertia right away.
-          </p>
-        </div>
-      )}
+      {/* Hero Recommendation Card (Always visible, editable, supports keyboard & mic) */}
+      <RecommendationCard
+        recommendation={recommendation}
+        onStartFocus={onStartFocus}
+        onDecomposeTask={onDecomposeTask}
+        onAddTask={onAddTask}
+        badgeLabel="SELECTED FOR YOU"
+        actionButtonText="START THIS STEP RIGHT NOW"
+      />
 
       {/* Signature: Task Start Engine */}
       <div className="glass-panel p-5 sm:p-6 rounded-3xl space-y-3">
