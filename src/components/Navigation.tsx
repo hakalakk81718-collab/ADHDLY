@@ -5,12 +5,11 @@ import {
   Compass, CheckSquare, Brain, Clock, Wind, Sliders, 
   BarChart2, ShieldAlert, Sparkles, Plus, BookOpen, Briefcase, 
   Settings, Bot, Timer, Layers, PanelLeftClose, PanelLeftOpen,
-  Maximize2, Minimize2, User, Menu, X, Waves
+  Maximize2, Minimize2, User, Menu, X, Waves, MessageSquarePlus
 } from 'lucide-react';
 import { soundEngine } from '@/lib/soundEngine';
 import { RotatingPhilosophy } from '@/components/RotatingPhilosophy';
 import { AdhdlyLogo } from '@/components/AdhdlyLogo';
-import { SidebarSuggestionBox } from '@/components/SidebarSuggestionBox';
 
 import { AuthUser } from '@/types';
 
@@ -25,6 +24,7 @@ export type ActiveTab =
   | 'routines' 
   | 'study-work' 
   | 'insights' 
+  | 'suggestions'
   | 'landing';
 
 interface NavigationProps {
@@ -93,9 +93,10 @@ export const Navigation: React.FC<NavigationProps> = ({
       ]
     },
     {
-      title: 'Self-Knowledge & Product',
+      title: 'Self-Knowledge & Community',
       items: [
         { id: 'insights' as ActiveTab, label: 'Positive Insights', icon: <BarChart2 className="w-4 h-4" /> },
+        { id: 'suggestions' as ActiveTab, label: 'Suggestion Box', icon: <MessageSquarePlus className="w-4 h-4 text-amber-400" />, badge: 'Feedback' },
         { id: 'landing' as ActiveTab, label: 'Product Overview', icon: <Compass className="w-4 h-4 text-indigo-400" /> },
       ]
     }
@@ -298,11 +299,8 @@ export const Navigation: React.FC<NavigationProps> = ({
           ))}
         </div>
 
-        {/* Bottom Section: Suggestion Box, Rotating Philosophy & Account trigger */}
+        {/* Bottom Section: Rotating Philosophy every 10s & Account trigger */}
         <div className="pt-3 border-t border-slate-800/80 space-y-2">
-          {/* Suggestion Box */}
-          <SidebarSuggestionBox collapsed={sidebarCollapsed} />
-
           {/* Rotating Philosophy */}
           <RotatingPhilosophy collapsed={sidebarCollapsed} />
 
@@ -388,7 +386,6 @@ export const Navigation: React.FC<NavigationProps> = ({
             </div>
 
             <div className="pt-3 border-t border-slate-800 space-y-2">
-              <SidebarSuggestionBox collapsed={false} />
               <RotatingPhilosophy />
               <button
                 onClick={() => {

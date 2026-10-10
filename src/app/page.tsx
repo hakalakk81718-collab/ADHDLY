@@ -12,6 +12,7 @@ import { RoutinesView } from '@/components/views/RoutinesView';
 import { StudyWorkView } from '@/components/views/StudyWorkView';
 import { InsightsView } from '@/components/views/InsightsView';
 import { LandingView } from '@/components/views/LandingView';
+import { SuggestionBoxView } from '@/components/views/SuggestionBoxView';
 
 import { SoundMixerModal } from '@/components/SoundMixerModal';
 import { OverwhelmModal } from '@/components/OverwhelmModal';
@@ -269,6 +270,8 @@ export default function Home() {
         )}
 
         {activeTab === 'insights' && <InsightsView />}
+
+        {activeTab === 'suggestions' && <SuggestionBoxView />}
       </main>
 
       {/* Interactive Modals */}
