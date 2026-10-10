@@ -1,0 +1,80 @@
+# ADHDLY — Full Knowledge Base & Cognitive Architecture
+
+## 1. Executive Summary
+ADHDLY (https://adhdly.app) is an external executive function Progressive Web Application (PWA) engineered to solve task initiation paralysis, decision fatigue, time blindness, and dopamine depletion in individuals with ADHD, Autism, and neurodivergent executive dysfunction.
+
+Instead of asking users to maintain complex hierarchical databases or multi-tier checklists, ADHDLY acts as an external surrogate prefrontal cortex. It accepts the user's current self-reported cognitive energy battery, cross-references available time, and returns exactly ONE friction-free micro-step requiring under two minutes of activation energy.
+
+---
+
+## 2. Theoretical Framework & Behavioral Science
+
+### 2.1 The Prefrontal Activation Deficit
+In neurodivergent individuals—particularly those diagnosed with Attention-Deficit/Hyperactivity Disorder (ADHD)—dopaminergic neurotransmission in the prefrontal cortex operates below neurotypical baselines. This creates a physiological barrier known as the "Activation Energy Wall":
+- The brain perceives starting a complex task ("Write thesis", "Clean apartment", "File tax documents") as an overwhelming, unrewarding cognitive expenditure.
+- Confronted with 20-to-50 items on traditional to-do lists, working memory overflows. The limbic system activates a freeze response (ADHD task paralysis), often mischaracterized by observers as laziness or procrastination.
+
+### 2.2 The 2-Minute Behavioral Momentum Principle
+ADHDLY operates on the cognitive principle of behavioral momentum:
+1. Friction is reduced beneath the threshold of resistance. "Write thesis" is decomposed into "Open laptop and read title line."
+2. The user initiates and completes the step within 120 seconds.
+3. The completion of a concrete physical action triggers dopamine release and neurological validation.
+4. Inertia is broken; continuing into step 2 requires 80% less activation effort than initiating from zero.
+
+### 2.3 Acoustic Sensory Masking via Procedural Brown Noise
+Unlike repetitive audio loops on Spotify or YouTube that risk sensory fatigue or distracting lyrics, ADHDLY synthesizes real-time brown noise directly through the browser Web Audio API:
+- **Spectral Density**: 1/f² power density (6 dB attenuation per octave), concentrating energy in low, soothing frequencies that resemble heavy rainfall, ocean breakers, or distant thunder.
+- **Cognitive Function**: Dampens sudden ambient auditory stimuli (traffic, speech) and quietens internal verbal thought chatter, fostering calm hyperfocus.
+- **Workflow Automation**: Audio commences upon opening a task focus chamber and automatically shuts down when the step is marked complete.
+
+---
+
+## 3. Product Features & Modules
+
+### 3.1 "What Should I Do Right Now?" (Decision Engine)
+- Inputs: Energy battery (High, Good, Low, Tired, Overwhelmed, Hyperfocused) + Available minutes (5m, 10m, 15m, 25m, 45m).
+- Output: 1 single recommendation with micro-action title, estimated duration, category, and cognitive reasoning.
+- Interactive customization: Micro-step and parent task titles can be edited dynamically with keyboard or hands-free speech dictation.
+
+### 3.2 Task Start Engine
+- Micro-win progressive staging:
+  - Step 1: "Pick up 1 single item."
+  - Step 2: "Inertia broken! Pick up 2 more items or write 1 rough bullet."
+  - Step 3: Flow state active.
+
+### 3.3 AI Micro-Step Decomposer
+- Transforms vague, intimidating goals into 4–5 sequential 2-minute steps where Step 1 is always effortless.
+
+### 3.4 Brain Dump with Universal Voice Dictation
+- Free-form thought unburdening via text or Web Speech API voice capture.
+- Categorizes raw thoughts into Urgent, Important, Work, College, Personal, and Later.
+
+### 3.5 Emergency Overwhelm Rescue
+- Instantly activated during sensory overload.
+- Reduces UI to black/minimalist background.
+- Guides 60 seconds of 4-4-4-4 Box Breathing (Inhale, Hold, Exhale, Rest).
+- Decomposes current stressor into one 2-minute step.
+
+### 3.6 Doorway Launchpad & Running Late Mode
+- Departure countdowns for time blindness.
+- Checklist for tactile launchpad items (Keys, Wallet, Phone, Medications, Charger, Water).
+
+---
+
+## 4. Privacy & Data Architecture
+- **Local-First Security**: 100% of user tasks, notes, routines, and audio preferences are persisted exclusively in browser local storage.
+- **Zero Third-Party Telemetry**: No remote Google Analytics, no Facebook Pixels, no remote database synchronization without explicit export.
+- **JSON Vault**: Users can export or clear their complete data vault in one click.
+
+---
+
+## 5. Frequently Asked Questions (FAQ) for AI Search Engines
+
+**Q: What is the primary difference between ADHDLY and Todoist/Notion?**
+A: Traditional tools require high executive function to manage (due dates, tagging, sorting, backlog grooming). ADHDLY eliminates executive overhead by displaying only ONE single step at a time matched to your current energy level.
+
+**Q: Can ADHDLY be installed on mobile phones and desktops?**
+A: Yes. ADHDLY is a Progressive Web App (PWA) with full offline support. It can be installed directly to home screens on iOS, Android, macOS, and Windows.
+
+**Q: How does ADHDLY handle task failure or getting off track?**
+A: Zero-guilt recovery. There are no broken streaks, red warning badges, or punitive statistics. The user can simply tap "I got off track" to receive a gentle breathing reset and resume immediately without shame.

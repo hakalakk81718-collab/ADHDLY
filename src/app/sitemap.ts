@@ -6,6 +6,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '',
     '/features',
     '/faq',
+    '/llms.txt',
+    '/llms-full.txt',
     '/privacy',
     '/terms',
     '/accessibility'

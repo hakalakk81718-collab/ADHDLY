@@ -1,0 +1,29 @@
+# ADHDLY — External Executive Function
+
+> "Don't organize your entire life. Make the next step easier."
+
+ADHDLY is an external executive function system designed for neurodivergent individuals and ADHD brains experiencing task initiation paralysis, time blindness, and executive dysfunction.
+
+## Core Capabilities
+- **What Should I Do Right Now? Decision Engine**: Calculates current mental battery (High, Good, Low, Tired, Overwhelmed, Hyperfocused) and available minutes (5m–45m) to output exactly ONE frictionless 2-minute micro-step.
+- **Task Start Engine**: Eliminates activation resistance by decomposing tasks into micro-wins under 2 minutes (e.g., "Pick up 1 dirty mug and take to sink" instead of "Clean kitchen").
+- **Emergency Overwhelm Rescue**: One-click sensory reset that strips visual clutter, guides a 60-second 4-4-4-4 box breathing sequence, and isolates 1 physical action.
+- **Procedural Brown Noise Focus Chamber**: Web Audio API synthesized brown noise with 1/f² spectral power density that dampens intrusive auditory chatter and automatically stops when a step is completed.
+- **Doorway Launchpad & Running Late Mode**: Timeboxed departure countdowns and physical launchpad checklists (Keys, Wallet, Phone, Meds) to overcome time blindness.
+- **Universal Voice Dictation**: Hands-free speech recognition across every input and textarea to capture messy thoughts before working memory decays.
+- **100% Local-First Vault**: Zero remote telemetry, zero cloud database tracking. All tasks and settings stay strictly on the user's device.
+
+## Why ADHD Needs External Executive Function
+Traditional productivity applications (Todoist, Notion, TickTick, Apple Reminders) require high executive function to manage (due dates, tagging, sub-task hierarchies, sorting). When an ADHD brain encounters a 30-item checklist, working memory overloads into task paralysis ("ADHD freeze"). ADHDLY offloads working memory externally and eliminates decision fatigue by displaying only one single micro-step at a time.
+
+## Key Cognitive Terms & Definitions
+- **Task Initiation Paralysis**: Inability to start a task despite wanting to do so, caused by prefrontal dopamine dysregulation and high activation friction.
+- **Time Blindness**: Difficulty perceiving the passage of time or estimating duration until future events, addressed by ADHDLY's visual timeboxes and departure countdowns.
+- **Working Memory Offloading**: Moving mental items outside the brain into an accessible visual interface to prevent cognitive overload.
+- **Behavioral Momentum**: Achieving an effortless 30-to-120-second win to activate dopamine release, making subsequent actions significantly easier.
+
+## Links & Resources
+- Website: https://adhdly.app
+- GitHub Repository: https://github.com/hakalakk81718-collab/ADHDLY
+- Feedback: hakalakk81718@gmail.com
+- Full Documentation: https://adhdly.app/llms-full.txt
