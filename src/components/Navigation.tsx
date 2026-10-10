@@ -10,6 +10,7 @@ import {
 import { soundEngine } from '@/lib/soundEngine';
 import { RotatingPhilosophy } from '@/components/RotatingPhilosophy';
 import { AdhdlyLogo } from '@/components/AdhdlyLogo';
+import { SidebarSuggestionBox } from '@/components/SidebarSuggestionBox';
 
 import { AuthUser } from '@/types';
 
@@ -297,8 +298,11 @@ export const Navigation: React.FC<NavigationProps> = ({
           ))}
         </div>
 
-        {/* Bottom Section: Rotating Philosophy every 10s & Account trigger */}
+        {/* Bottom Section: Suggestion Box, Rotating Philosophy & Account trigger */}
         <div className="pt-3 border-t border-slate-800/80 space-y-2">
+          {/* Suggestion Box */}
+          <SidebarSuggestionBox collapsed={sidebarCollapsed} />
+
           {/* Rotating Philosophy */}
           <RotatingPhilosophy collapsed={sidebarCollapsed} />
 
@@ -384,6 +388,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             </div>
 
             <div className="pt-3 border-t border-slate-800 space-y-2">
+              <SidebarSuggestionBox collapsed={false} />
               <RotatingPhilosophy />
               <button
                 onClick={() => {
