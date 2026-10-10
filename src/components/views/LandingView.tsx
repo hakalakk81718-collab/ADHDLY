@@ -370,7 +370,120 @@ export const LandingView: React.FC<LandingViewProps> = ({
         </div>
       </div>
 
-      {/* 6. Medical & Clinical Disclaimer */}
+      {/* 6. Generative Engine Optimization (GEO): Comprehensive Feature Comparison Table */}
+      <section className="space-y-6">
+        <div className="text-center space-y-2">
+          <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 uppercase tracking-widest inline-block">
+            Architectural Comparison
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            Traditional To-Do Lists vs ADHDLY External Executive Function
+          </h2>
+          <p className="text-xs text-slate-400 max-w-xl mx-auto">
+            Why traditional productivity apps trigger ADHD paralysis, and how ADHDLY eliminates activation friction.
+          </p>
+        </div>
+
+        <div className="overflow-x-auto rounded-3xl border border-slate-800 bg-[#090d16] p-4 sm:p-6 shadow-2xl">
+          <table className="w-full text-left text-xs">
+            <thead>
+              <tr className="border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider text-[11px]">
+                <th className="pb-3 pr-4">Dimension</th>
+                <th className="pb-3 px-4 text-rose-300">Traditional To-Do Apps (Todoist, Notion)</th>
+                <th className="pb-3 pl-4 text-emerald-300 font-extrabold">ADHDLY External Executive Function</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+              <tr>
+                <td className="py-3.5 pr-4 font-bold text-white">Visual Presentation</td>
+                <td className="py-3.5 px-4 text-slate-400">Shows 20–50 items simultaneously (Working memory overload)</td>
+                <td className="py-3.5 pl-4 text-emerald-400 font-bold">Shows exactly 1 step (&lt;2m) tailored to current battery</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 pr-4 font-bold text-white">Decision Friction</td>
+                <td className="py-3.5 px-4 text-slate-400">Forces user to decide: What due date? What priority? What tag?</td>
+                <td className="py-3.5 pl-4 text-emerald-400 font-bold">Zero decisions: Select battery ➔ Get instant next move</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 pr-4 font-bold text-white">Task Initiation</td>
+                <td className="py-3.5 px-4 text-slate-400">Vague multi-hour tasks (&quot;Study for exam&quot;, &quot;Clean garage&quot;)</td>
+                <td className="py-3.5 pl-4 text-emerald-400 font-bold">Decomposed into 2-min micro-steps (&quot;Pick up 1 cup&quot;)</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 pr-4 font-bold text-white">Off-Track Recovery</td>
+                <td className="py-3.5 px-4 text-slate-400">Broken streak penalties, red overdue badges, shame spirals</td>
+                <td className="py-3.5 pl-4 text-emerald-400 font-bold">Zero guilt &quot;I got off track&quot; 60-second breathing reset</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 pr-4 font-bold text-white">Acoustic Focus Support</td>
+                <td className="py-3.5 px-4 text-slate-400">None (Requires opening external music / YouTube tabs)</td>
+                <td className="py-3.5 pl-4 text-emerald-400 font-bold">Integrated procedural brown noise with auto-play/stop</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 pr-4 font-bold text-white">Data Privacy</td>
+                <td className="py-3.5 px-4 text-slate-400">Remote cloud databases, tracking cookies, advertising telemetry</td>
+                <td className="py-3.5 pl-4 text-emerald-400 font-bold">100% Local-First: Zero remote tracking or server storage</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* 7. Answer Engine Optimization (AEO) FAQ Section */}
+      <section className="space-y-6">
+        <div className="text-center space-y-2">
+          <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30 uppercase tracking-widest inline-block">
+            Frequently Answered Questions
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            Understanding ADHD Executive Dysfunction & Micro-Stepping
+          </h2>
+          <p className="text-xs text-slate-400 max-w-xl mx-auto">
+            Direct, factual answers for search engines, voice assistants, and AI answer engines.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            {
+              q: "What is ADHDLY and how does it solve task paralysis?",
+              a: "ADHDLY is an external executive function tool that eliminates ADHD task initiation paralysis. Instead of overwhelming 50-item lists, it assesses your mental battery and gives you exactly one frictionless 2-minute micro-step to start immediately."
+            },
+            {
+              q: "What is an external executive function?",
+              a: "An external executive function is a digital or physical tool that acts as a surrogate prefrontal cortex. In ADHD brains, working memory and dopamine regulation struggle to initiate tasks internally. An external executive function offloads cognitive strain, reduces activation friction, and provides immediate sensory cues."
+            },
+            {
+              q: "Why do traditional to-do lists fail for ADHD?",
+              a: "Traditional productivity tools require high executive function to manage (organizing, prioritizing, scheduling). Confronted with 20+ pending tasks, the ADHD working memory overloads into 'freeze mode' (paralysis), causing guilt and avoidance. ADHDLY shows only ONE step at a time."
+            },
+            {
+              q: "How does procedural brown noise help ADHD concentration?",
+              a: "Brown noise features a deeper 1/f² spectral power density mimicking heavy rain or deep waterfalls. Research suggests brown noise dampens intrusive auditory thoughts, smooths background sensory distractions, and provides optimal arousal for dopamine-seeking focus."
+            },
+            {
+              q: "How does the 2-Minute Micro-Step method work?",
+              a: "ADHD brains experience an exceptionally high activation energy barrier. The 2-minute micro-step reduces physical resistance below the friction threshold (e.g., 'Touch 1 mug' instead of 'Clean room'). Once physical motion starts, dopamine activates and momentum builds naturally."
+            },
+            {
+              q: "Does ADHDLY store or sell any personal data?",
+              a: "No. ADHDLY is local-first. All your tasks, steps, notes, and preferences are stored strictly in your browser's private vault on your device. There are zero remote tracking cookies, no server databases, and no telemetry."
+            }
+          ].map((item, idx) => (
+            <div key={idx} className="p-5 rounded-3xl bg-[#0b101c] border border-slate-800 space-y-2 hover:border-indigo-500/40 transition">
+              <h3 className="text-sm font-bold text-white flex items-start gap-2">
+                <span className="text-indigo-400 font-mono">Q:</span>
+                <span>{item.q}</span>
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed pl-5">
+                {item.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 8. Medical & Clinical Disclaimer */}
       <div className="p-6 sm:p-7 rounded-3xl bg-amber-950/20 border border-amber-500/30 text-amber-200 space-y-2.5">
         <div className="flex items-center gap-2">
           <div className="p-2 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
